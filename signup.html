@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        p {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h2>Create Account</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="signupBtn">Sign Up</button>
+        <p id="msg"></p>
+        <a href="signin.html">Already have an account?</a>
+    </div>
+    <!-- Firebase SDKs (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+  apiKey: "AIzaSyAZtu0xab2R1iHCqKqDQBUJQ0BiiaQcuj4",
+  authDomain: "first-project-a37fa.firebaseapp.com",
+  projectId: "first-project-a37fa",
+  storageBucket: "first-project-a37fa.firebasestorage.app",
+  messagingSenderId: "736271443709",
+  appId: "1:736271443709:web:d4180cf8a60559fdd60094"
+};
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        document.getElementById("signupBtn").addEventListener("click", () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => window.location.href = "signin.html")
+                .catch(err => document.getElementById("msg").innerText =
+                    err.message);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f7;
+            margin: 0;
+        }
+
+        header {
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #b52d3a;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Dashboard</h2>
+        <button id="logoutBtn">Logout</button>
+    </header>
+    <main>
+        <div class="card">
+            <h3>Welcome</h3>
+            <p id="userEmail">Loading...</p>
+        </div>
+    </main>
+    <!-- Firebase SDKs (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+  apiKey: "AIzaSyAZtu0xab2R1iHCqKqDQBUJQ0BiiaQcuj4",
+  authDomain: "first-project-a37fa.firebaseapp.com",
+  projectId: "first-project-a37fa",
+  storageBucket: "first-project-a37fa.firebasestorage.app",
+  messagingSenderId: "736271443709",
+  appId: "1:736271443709:web:d4180cf8a60559fdd60094"
+};
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById("userEmail").innerText = `Logged in as:
+${user.email}`;
+            } else {
+                window.location.href = "signin.html";
+            }
+        });
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            auth.signOut().then(() => (window.location.href = "signin.html"));
+        });
+    </script>
+</body>
+
+</html>
